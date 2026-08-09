@@ -19,7 +19,7 @@ const upcoming = [
 export default function Vaccinations() {
   return (
     <DashboardLayout title="Vaccinations">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center">
             <Syringe size={22} className="text-green-600" />
@@ -38,7 +38,7 @@ export default function Vaccinations() {
         <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5">
           <h3 className="text-sm font-bold text-gray-900 mb-4">Program Status</h3>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="r-table w-full text-sm">
               <thead>
                 <tr className="text-left text-[11px] text-gray-500 uppercase tracking-wider border-b border-gray-100">
                   <th className="py-2.5 pr-4">Vaccine</th>
@@ -51,13 +51,13 @@ export default function Vaccinations() {
               </thead>
               <tbody>
                 {vaccines.map(v => (
-                  <motion.tr key={v.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.05 * vaccines.indexOf(v) }}
+                  <motion.tr key={v.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: Math.min(0.05 * vaccines.indexOf(v), 0.25) }}
                     className="border-b border-gray-50 hover:bg-green-50/20 transition-colors">
-                    <td className="py-3 pr-4 font-medium text-gray-900">{v.name}</td>
-                    <td className="py-3 pr-4 text-gray-600">{v.dose}</td>
-                    <td className="py-3 pr-4 text-gray-500">{v.schedule}</td>
-                    <td className="py-3 pr-4 text-gray-500">{v.next}</td>
-                    <td className="py-3 pr-4">
+                    <td data-label="Vaccine" className="py-3 pr-4 font-medium text-gray-900">{v.name}</td>
+                    <td data-label="Dose" className="py-3 pr-4 text-gray-600">{v.dose}</td>
+                    <td data-label="Schedule" className="py-3 pr-4 text-gray-500">{v.schedule}</td>
+                    <td data-label="Next Due" className="py-3 pr-4 text-gray-500">{v.next}</td>
+                    <td data-label="Coverage" className="py-3 pr-4">
                       <div className="flex items-center gap-2">
                         <div className="w-14 h-1.5 rounded-full bg-gray-100">
                           <div className="h-full rounded-full bg-green-500" style={{ width: `${v.coverage}%` }} />
@@ -65,7 +65,7 @@ export default function Vaccinations() {
                         <span className="text-xs font-bold text-gray-800">{v.coverage}</span>
                       </div>
                     </td>
-                    <td className="py-3">
+                    <td data-label="Status" className="py-3">
                       <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full ${
                         v.status === 'On Track' ? 'text-green-700 bg-green-50' : v.status === 'Due Soon' ? 'text-orange-600 bg-orange-50' : 'text-red-600 bg-red-50'
                       }`}>

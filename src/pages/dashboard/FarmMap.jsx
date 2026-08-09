@@ -4,9 +4,9 @@ import { MapPin, Users, Thermometer, Navigation } from 'lucide-react'
 
 const zones = [
   { name: 'Zone A — Grazing', count: 42, temp: '38.4°C avg', status: 'Healthy', color: 'bg-green-500', pos: 'top-[18%] left-[14%]' },
-  { name: 'Zone B — Dairy Barn', count: 38, temp: '38.6°C avg', status: 'Healthy', color: 'bg-green-500', pos: 'top-[30%] left-[45%]' },
+  { name: 'Zone B — Dairy Barn', count: 38, temp: '38.6°C avg', status: 'Healthy', color: 'bg-green-500', pos: 'top-[30%] left-[50%]' },
   { name: 'Zone C — Calving Area', count: 12, temp: '38.9°C avg', status: 'Monitor', color: 'bg-orange-400', pos: 'bottom-[30%] left-[30%]' },
-  { name: 'Zone D — Quarantine', count: 4, temp: '39.5°C avg', status: 'At Risk', color: 'bg-red-500', pos: 'bottom-[18%] right-[22%]' },
+  { name: 'Zone D — Quarantine', count: 4, temp: '39.5°C avg', status: 'At Risk', color: 'bg-red-500', pos: 'bottom-[12%] right-[18%]' },
 ]
 
 export default function FarmMap() {
@@ -14,7 +14,7 @@ export default function FarmMap() {
     <DashboardLayout title="Farm Map">
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl border border-gray-200 p-5 h-[480px] relative overflow-hidden">
+          <div className="bg-white rounded-xl border border-gray-200 p-5 h-[420px] sm:h-[480px] relative overflow-hidden">
             <img
               src="https://images.pexels.com/photos/5633476/pexels-photo-5633476.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt="Farm aerial view"
@@ -34,7 +34,7 @@ export default function FarmMap() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1 }}
-                className={`absolute ${z.pos} bg-white/95 backdrop-blur rounded-xl p-3 shadow-md cursor-pointer hover:shadow-lg transition-all w-44`}
+                className={`absolute ${z.pos} bg-white/95 backdrop-blur rounded-xl p-2.5 sm:p-3 shadow-md cursor-pointer hover:shadow-lg transition-all w-32 sm:w-44`}
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className={`w-2 h-2 rounded-full ${z.color}`} />

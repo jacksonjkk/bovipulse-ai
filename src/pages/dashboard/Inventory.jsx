@@ -20,7 +20,7 @@ const summary = [
 export default function Inventory() {
   return (
     <DashboardLayout title="Inventory">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div>
           <h2 className="text-lg font-bold text-gray-900">Farm Inventory</h2>
           <p className="text-xs text-gray-500">Manage feed, medical supplies, and equipment</p>
@@ -52,7 +52,7 @@ export default function Inventory() {
       <div className="bg-white rounded-xl border border-gray-200 p-5">
         <h3 className="text-sm font-bold text-gray-900 mb-4">Stock Levels</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="r-table w-full text-sm">
             <thead>
               <tr className="text-left text-[11px] text-gray-500 uppercase tracking-wider border-b border-gray-100">
                 <th className="py-2.5 pr-4">Item</th>
@@ -64,12 +64,12 @@ export default function Inventory() {
             </thead>
             <tbody>
               {inventory.map(item => (
-                <motion.tr key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.05 * inventory.indexOf(item) }}
+                  <motion.tr key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: Math.min(0.05 * inventory.indexOf(item), 0.25) }}
                   className="border-b border-gray-50 hover:bg-green-50/20 transition-colors">
-                  <td className="py-3 pr-4 font-medium text-gray-900">{item.name}</td>
-                  <td className="py-3 pr-4 text-gray-600">{item.category}</td>
-                  <td className="py-3 pr-4 text-gray-500">{item.stock}</td>
-                  <td className="py-3 pr-4">
+                  <td data-label="Item" className="py-3 pr-4 font-medium text-gray-900">{item.name}</td>
+                  <td data-label="Category" className="py-3 pr-4 text-gray-600">{item.category}</td>
+                  <td data-label="Stock" className="py-3 pr-4 text-gray-500">{item.stock}</td>
+                  <td data-label="Level" className="py-3 pr-4">
                     <div className="flex items-center gap-2">
                       <div className="w-20 h-1.5 rounded-full bg-gray-100">
                         <div className={`h-full rounded-full ${item.pct < 40 ? 'bg-red-500' : item.pct < 60 ? 'bg-orange-400' : 'bg-green-500'}`} style={{ width: `${item.pct}%` }} />
@@ -77,7 +77,7 @@ export default function Inventory() {
                       <span className="text-[11px] text-gray-500">{item.pct}%</span>
                     </div>
                   </td>
-                  <td className="py-3">
+                  <td data-label="Status" className="py-3">
                     <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full ${item.color}`}>
                       {item.status}
                     </span>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, Activity, Globe, ArrowRight } from 'lucide-react'
 
 const links = [
   { label: 'Home', to: '/' },
@@ -20,8 +20,8 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-green-100/50">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center text-lg">
-            🐄
+          <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center">
+            <Activity size={20} className="text-green-700" />
           </div>
           <span className="text-xl font-extrabold text-green-700 tracking-tight">BoviPulse</span>
         </Link>
@@ -44,7 +44,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <button className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-600 hover:text-green-700 transition-colors rounded-md hover:bg-green-50/50">
-            <span className="text-base">🌐</span>
+            <Globe size={16} />
             EN
             <ChevronDown size={14} />
           </button>
@@ -53,7 +53,7 @@ export default function Navbar() {
             className="inline-flex items-center gap-2 bg-green-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-green-800 transition-all hover:shadow-md active:scale-[0.97]"
           >
             Get Started
-            <span className="text-lg leading-none">→</span>
+            <ArrowRight size={16} />
           </Link>
         </div>
 
@@ -86,9 +86,9 @@ export default function Navbar() {
               <Link
                 to="/signup"
                 onClick={() => setOpen(false)}
-                className="mt-2 text-center bg-green-700 text-white px-5 py-3 rounded-lg text-sm font-semibold hover:bg-green-800 transition-colors"
+                className="mt-2 inline-flex items-center justify-center gap-2 bg-green-700 text-white px-5 py-3 rounded-lg text-sm font-semibold hover:bg-green-800 transition-colors"
               >
-                Get Started →
+                Get Started <ArrowRight size={16} />
               </Link>
             </div>
           </motion.div>

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Shield, ChevronRight } from 'lucide-react'
+import { Shield, ChevronRight, Activity, Sprout, Stethoscope, Briefcase, Building2, Lock, Cloud, ShieldCheck, Users, ArrowRight } from 'lucide-react'
 
 const roles = [
-  { id: 'farmer', emoji: '🧑‍🌾', title: 'Farmer', titleColor: 'text-green-700', badge: 'Recommended', desc: 'Manage your herd, monitor health, and get real-time insights.', features: ['Monitor cattle health', 'Track reproduction & growth', 'Receive AI-powered alerts'], btnLabel: "I'm a Farmer", bg: 'bg-green-700' },
-  { id: 'vet', emoji: '👨‍⚕️', title: 'Veterinarian', titleColor: 'text-blue-500', desc: 'Diagnose, treat, and monitor livestock more efficiently.', features: ['Access animal health records', 'Make accurate diagnoses', 'Track treatments & outcomes'], btnLabel: "I'm a Veterinarian", bg: 'bg-blue-500' },
-  { id: 'manager', emoji: '👨‍💼', title: 'Farm Manager', titleColor: 'text-purple-500', desc: 'Oversee daily operations and improve productivity.', features: ['Manage farm activities', 'Analyze performance data', 'Generate reports'], btnLabel: "I'm a Farm Manager", bg: 'bg-purple-500' },
-  { id: 'org', emoji: '🏢', title: 'Farm Organization', titleColor: 'text-orange-500', desc: 'Manage multiple farms, teams, and data at scale.', features: ['Manage multiple farms', 'Team & role management', 'Advanced analytics & reports'], btnLabel: 'I represent an Organization', bg: 'bg-orange-500' },
+  { id: 'farmer', icon: Sprout, title: 'Farmer', titleColor: 'text-green-700', badge: 'Recommended', desc: 'Manage your herd, monitor health, and get real-time insights.', features: ['Monitor cattle health', 'Track reproduction & growth', 'Receive AI-powered alerts'], btnLabel: "I'm a Farmer", bg: 'bg-green-700' },
+  { id: 'vet', icon: Stethoscope, title: 'Veterinarian', titleColor: 'text-blue-500', desc: 'Diagnose, treat, and monitor livestock more efficiently.', features: ['Access animal health records', 'Make accurate diagnoses', 'Track treatments & outcomes'], btnLabel: "I'm a Veterinarian", bg: 'bg-blue-500' },
+  { id: 'manager', icon: Briefcase, title: 'Farm Manager', titleColor: 'text-purple-500', desc: 'Oversee daily operations and improve productivity.', features: ['Manage farm activities', 'Analyze performance data', 'Generate reports'], btnLabel: "I'm a Farm Manager", bg: 'bg-purple-500' },
+  { id: 'org', icon: Building2, title: 'Farm Organization', titleColor: 'text-orange-500', desc: 'Manage multiple farms, teams, and data at scale.', features: ['Manage multiple farms', 'Team & role management', 'Advanced analytics & reports'], btnLabel: 'I represent an Organization', bg: 'bg-orange-500' },
 ]
 
 export default function ChooseRole() {
@@ -20,7 +20,9 @@ export default function ChooseRole() {
 
       <header className="relative z-10 flex items-center px-6 lg:px-16 py-4 border-b border-white/10 bg-white/95">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center text-lg">🐄</div>
+          <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center">
+            <Activity size={20} className="text-green-700" />
+          </div>
           <span className="text-lg font-extrabold text-green-700 tracking-tight">BoviPulse</span>
         </Link>
       </header>
@@ -41,7 +43,9 @@ export default function ChooseRole() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {roles.map(r => (
+          {roles.map(r => {
+            const Icon = r.icon
+            return (
             <motion.div
               key={r.id}
               initial={{ opacity: 0, y: 20 }}
@@ -53,7 +57,7 @@ export default function ChooseRole() {
               }`}
             >
               {r.badge && <div className="absolute top-3.5 right-3.5 bg-green-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">{r.badge}</div>}
-              <div className="text-4xl w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-1">{r.emoji}</div>
+              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-1"><Icon size={32} className={r.titleColor} /></div>
               <h3 className={`text-lg font-extrabold text-center ${r.titleColor}`}>{r.title}</h3>
               <p className="text-xs text-gray-600 text-center leading-relaxed">{r.desc}</p>
               <ul className="flex flex-col gap-2">
@@ -68,29 +72,33 @@ export default function ChooseRole() {
                 {r.btnLabel} <ChevronRight size={16} />
               </button>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 bg-white border border-gray-200 rounded-xl overflow-hidden">
           {[
-            { icon: '🔒', title: 'Your data is secure', sub: 'Enterprise-grade security' },
-            { icon: '☁️', title: 'Cloud Synced', sub: 'Access anywhere, anytime' },
-            { icon: '🛡️', title: 'Trusted by Professionals', sub: 'Veterinarians & experts' },
-            { icon: '👥', title: 'Built for All Roles', sub: 'Tailored to your needs' },
-          ].map((t, i) => (
+            { icon: Lock, title: 'Your data is secure', sub: 'Enterprise-grade security' },
+            { icon: Cloud, title: 'Cloud Synced', sub: 'Access anywhere, anytime' },
+            { icon: ShieldCheck, title: 'Trusted by Professionals', sub: 'Veterinarians & experts' },
+            { icon: Users, title: 'Built for All Roles', sub: 'Tailored to your needs' },
+          ].map((t, i) => {
+            const Icon = t.icon
+            return (
             <div key={i} className="flex items-center gap-3 p-5 border-r border-gray-200 last:border-r-0">
-              <span className="text-xl">{t.icon}</span>
+              <span className="text-xl"><Icon size={20} className="text-green-700" /></span>
               <div>
                 <div className="text-xs font-bold text-gray-900">{t.title}</div>
                 <div className="text-[11px] text-gray-500">{t.sub}</div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
 
         <div className="text-center text-sm text-gray-600 pb-4">
           Already have an account?{' '}
-          <Link to="/" className="text-green-700 font-bold hover:underline">Sign In →</Link>
+          <Link to="/signin" className="text-green-700 font-bold hover:underline inline-flex items-center gap-1">Sign In <ArrowRight size={14} /></Link>
         </div>
       </div>
     </div>

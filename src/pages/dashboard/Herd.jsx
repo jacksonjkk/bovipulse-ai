@@ -1,6 +1,6 @@
 import DashboardLayout from './DashboardLayout'
 import { motion } from 'framer-motion'
-import { Plus, Search, Filter, Heart, AlertTriangle, Baby, Thermometer } from 'lucide-react'
+import { Plus, Search, Filter, Heart, AlertTriangle, Baby, Thermometer, PawPrint } from 'lucide-react'
 
 const herd = [
   { id: 'A124', name: 'Daisy', breed: 'Holstein Friesian', age: '4 yr', weight: '620 kg', temp: '38.6°C', status: 'Healthy', health: 92, color: 'text-green-700 bg-green-50' },
@@ -44,10 +44,10 @@ export default function Herd() {
       <div className="bg-white rounded-xl border border-gray-200 p-5">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5">
           <h3 className="text-sm font-bold text-gray-900">Your Herd</h3>
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+            <div className="relative flex-1 min-w-0 w-full sm:w-auto sm:flex-none">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input placeholder="Search cattle..." className="pl-9 pr-3.5 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-sm w-52 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
+              <input placeholder="Search cattle..." className="pl-9 pr-3.5 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-sm w-full sm:w-52 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
             </div>
             <button className="inline-flex items-center gap-2 text-xs font-semibold text-gray-600 border border-gray-200 px-3.5 py-2.5 rounded-lg hover:bg-gray-50 transition-all cursor-pointer">
               <Filter size={14} /> Filter
@@ -60,10 +60,12 @@ export default function Herd() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {herd.map((c, i) => (
-            <motion.div key={c.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}
+            <motion.div key={c.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.04, 0.24) }}
               className="rounded-xl border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer bg-white">
               <div className="flex items-start justify-between mb-3">
-                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-xl">🐄</div>
+                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
+                  <PawPrint size={22} className="text-green-600" />
+                </div>
                 <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${c.color}`}>{c.status}</span>
               </div>
               <div className="text-sm font-bold text-gray-900">{c.name}</div>

@@ -14,8 +14,8 @@ const reports = [
 export default function Reports() {
   return (
     <DashboardLayout title="Reports">
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div className="flex flex-wrap items-center gap-3">
           <button className="inline-flex items-center gap-2 text-xs font-semibold text-gray-600 border border-gray-200 bg-white px-4 py-2.5 rounded-lg hover:bg-gray-50 transition-all cursor-pointer">
             <Filter size={14} /> Filter
           </button>
@@ -31,7 +31,7 @@ export default function Reports() {
             key={r.id}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
+            transition={{ delay: Math.min(i * 0.05, 0.25) }}
             className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-all"
           >
             <div className="flex items-start justify-between mb-4">

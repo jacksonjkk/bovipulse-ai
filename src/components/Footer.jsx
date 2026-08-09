@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Activity } from 'lucide-react'
 
 const footerLinks = {
   Product: [
@@ -34,7 +35,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-green-700/50 rounded-lg flex items-center justify-center text-lg">🐄</div>
+              <div className="w-9 h-9 bg-green-700/50 rounded-lg flex items-center justify-center">
+                <Activity size={20} className="text-green-200" />
+              </div>
               <span className="text-xl font-extrabold tracking-tight">BoviPulse</span>
             </Link>
             <p className="text-green-300/80 text-sm leading-relaxed mb-5">

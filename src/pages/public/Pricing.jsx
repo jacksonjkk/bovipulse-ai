@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Check, Circle, Phone } from 'lucide-react'
+import { ArrowRight, Check, Circle, Phone, Sprout, Leaf, Star, Crown } from 'lucide-react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 
 const plans = [
-  { icon: '🌱', name: 'Community', for: 'For individual farmers & smallholders', price: '$0', period: '/month', highlight: 'Free forever', features: ['Up to 10 Cattle', 'Basic Health Monitoring', 'Mobile App Access', 'Email Support'], popular: false },
-  { icon: '🌿', name: 'Growth', for: 'For growing farms that need more insights', price: '$19', period: '/month', highlight: 'Billed annually', features: ['Up to 50 Cattle', 'Advanced Health Monitoring', 'Reproductive Tracking', 'Thermal Alerts', 'Priority Email Support'], popular: false },
-  { icon: '⭐', name: 'Professional', for: 'For professional farms seeking advanced tools', price: '$49', period: '/month', highlight: 'Billed annually', features: ['Up to 200 Cattle', 'All Growth Features', 'AI Predictive Analytics', 'Disease Risk Prediction', 'Data Export & Reports', 'Priority Support'], popular: true },
-  { icon: '👑', name: 'Enterprise', for: 'For large farms and organizations', price: '$99', period: '/month', highlight: 'Billed annually', features: ['Unlimited Cattle', 'All Professional Features', 'Custom Integrations', 'Dedicated Account Manager', '24/7 Premium Support'], popular: false },
+  { icon: Sprout, name: 'Community', for: 'For individual farmers & smallholders', price: '$0', period: '/month', highlight: 'Free forever', features: ['Up to 10 Cattle', 'Basic Health Monitoring', 'Mobile App Access', 'Email Support'], popular: false },
+  { icon: Leaf, name: 'Growth', for: 'For growing farms that need more insights', price: '$19', period: '/month', highlight: 'Billed annually', features: ['Up to 50 Cattle', 'Advanced Health Monitoring', 'Reproductive Tracking', 'Thermal Alerts', 'Priority Email Support'], popular: false },
+  { icon: Star, name: 'Professional', for: 'For professional farms seeking advanced tools', price: '$49', period: '/month', highlight: 'Billed annually', features: ['Up to 200 Cattle', 'All Growth Features', 'AI Predictive Analytics', 'Disease Risk Prediction', 'Data Export & Reports', 'Priority Support'], popular: true },
+  { icon: Crown, name: 'Enterprise', for: 'For large farms and organizations', price: '$99', period: '/month', highlight: 'Billed annually', features: ['Unlimited Cattle', 'All Professional Features', 'Custom Integrations', 'Dedicated Account Manager', '24/7 Premium Support'], popular: false },
 ]
 
 export default function Pricing() {
@@ -37,7 +37,9 @@ export default function Pricing() {
 
       <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {plans.map((p, i) => (
+          {plans.map((p, i) => {
+            const Icon = p.icon
+            return (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 24 }}
@@ -53,7 +55,7 @@ export default function Pricing() {
                   MOST POPULAR
                 </div>
               )}
-              <span className="text-3xl">{p.icon}</span>
+              <Icon size={32} className={p.popular ? 'text-green-700' : 'text-green-600'} />
               <h3 className={`text-xl font-extrabold ${p.popular ? 'text-green-700' : 'text-gray-900'}`}>{p.name}</h3>
               <p className="text-[11px] text-gray-500 leading-relaxed">{p.for}</p>
               <div className="flex items-baseline gap-1 mt-1.5">
@@ -81,7 +83,8 @@ export default function Pricing() {
                 {i === 0 ? 'Get Started Free' : i === 3 ? 'Contact Sales' : `Choose ${p.name}`}
               </button>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
       </section>
 

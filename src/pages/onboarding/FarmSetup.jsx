@@ -19,7 +19,7 @@ export default function FarmSetup() {
             <ArrowLeft size={16} /> Back
           </button>
 
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 lg:p-10 shadow-2xl border border-white/50">
+          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/50">
             <div className="flex items-center gap-3 mb-6">
               {[1, 2, 3].map(s => (
                 <div key={s} className={`h-2 rounded-full flex-1 ${s <= 2 ? 'bg-green-600' : 'bg-gray-200'}`} />
@@ -31,7 +31,7 @@ export default function FarmSetup() {
             <p className="text-sm text-gray-600 mb-7">Tell us about your farm so we can tailor the experience.</p>
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold text-gray-700">Farm Name</label>
                   <input name="farmName" value={form.farmName} onChange={handleChange} placeholder="e.g. Greenfield Farm" required
@@ -49,7 +49,7 @@ export default function FarmSetup() {
                   </select>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold text-gray-700">Herd Size</label>
                   <input name="herdSize" value={form.herdSize} onChange={handleChange} type="number" placeholder="e.g. 50" required

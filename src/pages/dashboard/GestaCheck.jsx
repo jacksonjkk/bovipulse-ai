@@ -57,14 +57,14 @@ export default function GestaCheck() {
 
         {/* Tracking Table */}
         <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <h2 className="text-sm font-bold text-gray-900">Pregnancy Tracking</h2>
             <button className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-green-700 px-4 py-2 rounded-lg hover:bg-green-800 transition-all cursor-pointer">
               <Calendar size={14} /> Log New Scan
             </button>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="r-table w-full text-sm">
               <thead>
                 <tr className="text-left text-[11px] text-gray-500 uppercase tracking-wider border-b border-gray-100">
                   <th className="py-2.5 pr-4">ID</th>
@@ -81,15 +81,15 @@ export default function GestaCheck() {
                     key={c.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.05 * cows.indexOf(c) }}
+                    transition={{ delay: Math.min(0.05 * cows.indexOf(c), 0.25) }}
                     className="border-b border-gray-50 hover:bg-green-50/20 transition-colors"
                   >
-                    <td className="py-3 pr-4 font-semibold text-green-700">{c.id}</td>
-                    <td className="py-3 pr-4 font-medium text-gray-900">{c.name}</td>
-                    <td className="py-3 pr-4 text-gray-600">{c.stage}</td>
-                    <td className="py-3 pr-4 text-gray-500">{c.days}</td>
-                    <td className="py-3 pr-4 text-gray-500">{c.due}</td>
-                    <td className="py-3">
+                    <td data-label="ID" className="py-3 pr-4 font-semibold text-green-700">{c.id}</td>
+                    <td data-label="Name" className="py-3 pr-4 font-medium text-gray-900">{c.name}</td>
+                    <td data-label="Stage" className="py-3 pr-4 text-gray-600">{c.stage}</td>
+                    <td data-label="Days" className="py-3 pr-4 text-gray-500">{c.days}</td>
+                    <td data-label="Due / Next" className="py-3 pr-4 text-gray-500">{c.due}</td>
+                    <td data-label="Status" className="py-3">
                       <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full ${c.color}`}>
                         {c.status === 'Healthy' ? <CheckCircle2 size={12} /> : <AlertTriangle size={12} />}
                         {c.status}

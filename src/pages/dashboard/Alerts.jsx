@@ -17,7 +17,7 @@ export default function Alerts() {
 
   return (
     <DashboardLayout title="Alerts">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center">
             <Bell size={22} className="text-red-500" />
@@ -41,7 +41,7 @@ export default function Alerts() {
               key={i}
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: Math.min(i * 0.05, 0.25) }}
               onClick={() => setRead(r => ({ ...r, [a.title]: true }))}
               className={`flex items-start gap-4 p-4 rounded-xl border bg-white transition-all hover:shadow-md cursor-pointer ${
                 a.urgent && !isRead ? 'border-orange-200 bg-orange-50/40' : 'border-gray-200'

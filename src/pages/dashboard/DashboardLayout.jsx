@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Home, Users, Fingerprint, Thermometer, Baby, BarChart3, FileText, Bell, Syringe, Map, Package, Settings, LogOut, Menu, ChevronDown } from 'lucide-react'
+import { Home, Users, Fingerprint, Thermometer, Baby, BarChart3, FileText, Bell, Syringe, Map, Package, Settings, LogOut, Menu, ChevronDown, Activity, X } from 'lucide-react'
 
 const sidebarLinks = [
   { section: 'Main', items: [
@@ -27,17 +27,37 @@ const sidebarLinks = [
 
 export default function DashboardLayout({ title, children }) {
   const location = useLocation()
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 1024)
+
+  useEffect(() => {
+    const onResize = () => setSidebarOpen(window.innerWidth >= 1024)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  const closeMobile = () => {
+    if (window.innerWidth < 1024) setSidebarOpen(false)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Mobile backdrop */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-[35] bg-black/40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* Sidebar */}
-      <aside className={`fixed lg:static inset-y-0 left-0 z-40 bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ${
-        sidebarOpen ? 'w-64' : 'w-0 lg:w-16 overflow-hidden'
-      }`}>
+      <aside className={`fixed inset-y-0 left-0 z-40 bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ${
+        sidebarOpen ? 'w-64 translate-x-0' : 'w-64 -translate-x-full lg:w-16 lg:translate-x-0'
+      } lg:sticky lg:top-0 lg:h-screen`}>
         <div className="flex items-center gap-2.5 p-4 border-b border-gray-100 min-h-16">
-          <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center text-lg flex-shrink-0">🐄</div>
+          <div className="w-9 h-9 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Activity size={20} className="text-green-700" />
+          </div>
           {sidebarOpen && <span className="text-lg font-extrabold text-green-700 tracking-tight whitespace-nowrap">BoviPulse</span>}
+          <button onClick={() => setSidebarOpen(false)} className="ml-auto lg:hidden p-2 text-gray-500 hover:text-gray-900 transition-colors rounded-lg cursor-pointer">
+            <X size={18} />
+          </button>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3 space-y-5">
@@ -54,6 +74,7 @@ export default function DashboardLayout({ title, children }) {
                     <Link
                       key={item.to}
                       to={item.to}
+                      onClick={closeMobile}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
                         active ? 'bg-green-50 text-green-700 font-semibold' : 'text-gray-600 hover:text-green-700 hover:bg-green-50/50'
                       }`}
@@ -69,7 +90,7 @@ export default function DashboardLayout({ title, children }) {
         </nav>
 
         <div className="p-3 border-t border-gray-100">
-          <button className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer">
+          <button onClick={closeMobile} className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer">
             <LogOut size={18} />
             {sidebarOpen && <span>Logout</span>}
           </button>
@@ -83,7 +104,7 @@ export default function DashboardLayout({ title, children }) {
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-gray-600 hover:text-green-700 transition-colors rounded-lg hover:bg-green-50 cursor-pointer">
               <Menu size={20} />
             </button>
-            <h1 className="text-lg font-bold text-gray-900 hidden sm:block">{title}</h1>
+            <h1 className="text-base sm:text-lg font-bold text-gray-900 truncate min-w-0 max-w-[140px] sm:max-w-none">{title}</h1>
           </div>
           <div className="flex items-center gap-3">
             <button className="relative p-2 text-gray-600 hover:text-green-700 transition-colors rounded-lg hover:bg-green-50 cursor-pointer">

@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Landing from './pages/public/Landing'
 import Features from './pages/public/Features'
 import HowItWorks from './pages/public/HowItWorks'
@@ -6,6 +7,7 @@ import About from './pages/public/About'
 import Pricing from './pages/public/Pricing'
 import Contact from './pages/public/Contact'
 import SignUp from './pages/auth/SignUp'
+import SignIn from './pages/auth/SignIn'
 import ChooseRole from './pages/auth/ChooseRole'
 import FarmSetup from './pages/onboarding/FarmSetup'
 import Preferences from './pages/onboarding/Preferences'
@@ -23,9 +25,19 @@ import Inventory from './pages/dashboard/Inventory'
 import CowProfile from './pages/dashboard/CowProfile'
 import Settings from './pages/dashboard/Settings'
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/features" element={<Features />} />
       <Route path="/how-it-works" element={<HowItWorks />} />
@@ -33,6 +45,7 @@ export default function App() {
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/signin" element={<SignIn />} />
       <Route path="/role" element={<ChooseRole />} />
       <Route path="/farm-setup" element={<FarmSetup />} />
       <Route path="/preferences" element={<Preferences />} />
@@ -50,6 +63,7 @@ export default function App() {
       <Route path="/dashboard/inventory" element={<Inventory />} />
       <Route path="/dashboard/cow/:id" element={<CowProfile />} />
       <Route path="/dashboard/settings" element={<Settings />} />
-    </Routes>
+      </Routes>
+    </>
   )
 }

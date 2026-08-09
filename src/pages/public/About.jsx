@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Target, Layers, Star } from 'lucide-react'
+import { ArrowRight, Target, Layers, Star, Heart, Thermometer, Wind } from 'lucide-react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 
@@ -59,19 +59,22 @@ export default function About() {
           </div>
           <div className="absolute top-16 right-8 bg-white rounded-xl p-4 shadow-lg z-20 w-44">
             {[
-              { icon: '❤️', label: 'Health Score', value: '92', sub: 'Excellent', cls: 'text-green-600' },
-              { icon: '🌡️', label: 'Body Temperature', value: '38.6°C', sub: 'Normal', cls: 'text-gray-900' },
-              { icon: '💨', label: 'Respiration Rate', value: '28 /min', sub: 'Normal', cls: 'text-gray-900' },
-            ].map((m, i) => (
+              { icon: Heart, label: 'Health Score', value: '92', sub: 'Excellent', cls: 'text-green-600' },
+              { icon: Thermometer, label: 'Body Temperature', value: '38.6°C', sub: 'Normal', cls: 'text-gray-900' },
+              { icon: Wind, label: 'Respiration Rate', value: '28 /min', sub: 'Normal', cls: 'text-gray-900' },
+            ].map((m, i) => {
+              const Icon = m.icon
+              return (
               <div key={i} className={`flex gap-2.5 items-center ${i < 2 ? 'mb-3' : ''} ${i === 2 ? 'pt-2.5 border-t border-gray-100' : ''}`}>
-                <span className="text-lg">{m.icon}</span>
+                <span className="flex-shrink-0"><Icon size={20} className={m.cls} /></span>
                 <div>
                   <div className="text-[10px] text-gray-500">{m.label}</div>
                   <div className={`text-lg font-extrabold ${m.cls}`}>{m.value}</div>
                   <div className="text-[10px] text-gray-400">{m.sub}</div>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

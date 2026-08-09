@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Activity, Thermometer, Baby, Cloud, BarChart3 } from 'lucide-react'
+import { ArrowRight, Activity, Thermometer, Baby, Cloud, BarChart3, PawPrint, Heart, AlertTriangle, RefreshCw } from 'lucide-react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 
 const stats = [
-  { icon: '🐄', label: 'Total Cattle', value: '128', sub: 'View all', color: 'green' },
-  { icon: '❤️', label: 'Healthy', value: '117', sub: '91.4%', color: 'green' },
-  { icon: '⚠️', label: 'At Risk', value: '5', sub: '3.9%', color: 'orange' },
-  { icon: '🤰', label: 'Pregnant', value: '34', sub: '26.6%', color: 'pink' },
-  { icon: '🔄', label: 'Needs Check', value: '12', sub: '9.4%', color: 'orange' },
+  { icon: PawPrint, label: 'Total Cattle', value: '128', sub: 'View all', color: 'green' },
+  { icon: Heart, label: 'Healthy', value: '117', sub: '91.4%', color: 'green' },
+  { icon: AlertTriangle, label: 'At Risk', value: '5', sub: '3.9%', color: 'orange' },
+  { icon: Baby, label: 'Pregnant', value: '34', sub: '26.6%', color: 'pink' },
+  { icon: RefreshCw, label: 'Needs Check', value: '12', sub: '9.4%', color: 'orange' },
 ]
 
 const coreFeatures = [
@@ -85,7 +85,9 @@ export default function Features() {
         </div>
 
         <div className="hidden lg:flex flex-col gap-2 p-5 border-l border-gray-200 bg-white justify-center shadow-md">
-          {stats.map((s, i) => (
+          {stats.map((s, i) => {
+            const Icon = s.icon
+            return (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: 20 }}
@@ -93,10 +95,10 @@ export default function Features() {
               transition={{ delay: 0.1 * i }}
               className="flex items-center gap-3.5 p-3.5 rounded-xl border border-gray-200 hover:shadow-sm transition-shadow bg-white"
             >
-              <span className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg ${
+              <span className={`w-11 h-11 rounded-xl flex items-center justify-center ${
                 s.color === 'green' ? 'bg-green-600' : s.color === 'orange' ? 'bg-orange-500' : 'bg-pink-500'
               } bg-opacity-15`}>
-                {s.icon}
+                <Icon size={20} className={`${s.color === 'green' ? 'text-green-600' : s.color === 'orange' ? 'text-orange-500' : 'text-pink-500'}`} />
               </span>
               <div>
                 <div className="text-[11px] text-gray-500">{s.label}</div>
@@ -106,7 +108,8 @@ export default function Features() {
                 }`}>{s.sub}</div>
               </div>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
       </section>
 

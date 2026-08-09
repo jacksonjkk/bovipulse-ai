@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ChevronRight, ArrowLeft } from 'lucide-react'
+import { ChevronRight, ArrowLeft, Settings } from 'lucide-react'
 
 const toggles = [
   { id: 'health', label: 'Health Alerts', desc: 'Receive real-time health notifications for your herd.' },
@@ -30,7 +30,7 @@ export default function Preferences() {
             <ArrowLeft size={16} /> Back
           </button>
 
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 lg:p-10 shadow-2xl border border-white/50">
+          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/50">
             <div className="flex items-center gap-3 mb-6">
               {[1, 2, 3].map(s => (
                 <div key={s} className={`h-2 rounded-full flex-1 ${s <= 3 ? 'bg-green-600' : 'bg-gray-200'}`} />
@@ -39,7 +39,9 @@ export default function Preferences() {
             </div>
 
             <div className="flex items-center gap-4 mb-7">
-              <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-2xl">⚙️</div>
+              <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center">
+                <Settings size={26} className="text-green-700" />
+              </div>
               <div>
                 <h1 className="text-2xl font-black text-gray-900">Your Preferences</h1>
                 <p className="text-sm text-gray-600">Customize your BoviPulse experience.</p>
@@ -48,7 +50,7 @@ export default function Preferences() {
 
             <form onSubmit={handleSubmit}>
               <div className="mb-7">
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-gray-700">Language</label>
                     <select value={lang} onChange={e => setLang(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all">

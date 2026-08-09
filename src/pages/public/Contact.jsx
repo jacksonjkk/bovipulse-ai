@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Mail, Lock, MapPin, Send } from 'lucide-react'
+import { ArrowRight, Mail, Lock, MapPin, Send, Headphones, MessageCircle, Phone, Link, User, Pin, PenLine, ArrowUpRight } from 'lucide-react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 
@@ -10,16 +10,16 @@ export default function Contact() {
   const handleSubmit = e => { e.preventDefault(); alert('Message sent! We\'ll get back to you soon.') }
 
   const features = [
-    { icon: '🎧', title: 'Expert Support', desc: 'Get help from our livestock tech experts' },
-    { icon: '💬', title: 'Quick Response', desc: 'We typically respond within 24 hours' },
-    { icon: '🔒', title: 'Your Data is Safe', desc: 'We prioritize the security and privacy of your data' },
+    { icon: Headphones, title: 'Expert Support', desc: 'Get help from our livestock tech experts' },
+    { icon: MessageCircle, title: 'Quick Response', desc: 'We typically respond within 24 hours' },
+    { icon: Lock, title: 'Your Data is Safe', desc: 'We prioritize the security and privacy of your data' },
   ]
 
   const infoCards = [
-    { icon: '✉️', title: 'Email Us', desc: 'Send us an email anytime.', detail: 'support@bovipulse.com', link: true },
-    { icon: '📞', title: 'Call Us', desc: 'Mon - Fri, 9:00 AM - 6:00 PM', detail: '+1 (555) 123-4567', link: true },
-    { icon: '📍', title: 'Visit Us', desc: `123 Greenfield Way, Suite 100\nAmes, IA 50010, USA` },
-    { icon: '🔗', title: 'Follow Us', desc: 'Stay updated with our latest news', social: true },
+    { icon: Mail, title: 'Email Us', desc: 'Send us an email anytime.', detail: 'support@bovipulse.com', link: true },
+    { icon: Phone, title: 'Call Us', desc: 'Mon - Fri, 9:00 AM - 6:00 PM', detail: '+1 (555) 123-4567', link: true },
+    { icon: MapPin, title: 'Visit Us', desc: `123 Greenfield Way, Suite 100\nAmes, IA 50010, USA` },
+    { icon: Link, title: 'Follow Us', desc: 'Stay updated with our latest news', social: true },
   ]
 
   return (
@@ -39,43 +39,49 @@ export default function Contact() {
             Have questions about BoviPulse? Our team is ready to assist you.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex flex-col gap-4">
-            {features.map((f, i) => (
+            {features.map((f, i) => {
+              const Icon = f.icon
+              return (
               <div key={i} className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-lg flex-shrink-0">{f.icon}</div>
+                <div className="w-11 h-11 rounded-full bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0"><Icon size={20} className="text-green-700" /></div>
                 <div>
                   <div className="text-sm font-bold text-gray-900">{f.title}</div>
                   <div className="text-xs text-gray-500">{f.desc}</div>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </motion.div>
         </div>
 
         <div className="bg-gray-50 flex items-center justify-center p-6 lg:pr-20">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white rounded-2xl p-8 shadow-lg w-full max-w-lg">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg w-full max-w-lg">
             <h2 className="text-xl font-extrabold text-green-700 mb-1.5">Send Us a Message</h2>
             <p className="text-xs text-gray-500 mb-6">Fill out the form below and we'll get back to you as soon as possible.</p>
             <form className="flex flex-col gap-3.5" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {[
-                  { name: 'name', placeholder: 'Full Name *', icon: '👤' },
-                  { name: 'email', placeholder: 'Email Address *', type: 'email', icon: '✉️' },
-                ].map(f => (
+                  { name: 'name', placeholder: 'Full Name *', icon: User },
+                  { name: 'email', placeholder: 'Email Address *', type: 'email', icon: Mail },
+                ].map(f => {
+                  const Icon = f.icon
+                  return (
                   <div key={f.name} className="relative flex items-center">
-                    <span className="absolute left-3.5 text-gray-400 pointer-events-none z-10">{f.icon}</span>
+                    <span className="absolute left-3.5 text-gray-400 pointer-events-none z-10"><Icon size={16} /></span>
                     <input name={f.name} value={form[f.name]} onChange={handleChange} type={f.type || 'text'} placeholder={f.placeholder} required
                       className="w-full pl-9 pr-3.5 py-3 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-800 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/10 transition-all" />
                   </div>
-                ))}
+                  )
+                })}
               </div>
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="relative flex items-center">
-                  <span className="absolute left-3.5 text-gray-400 pointer-events-none z-10">📞</span>
+                  <span className="absolute left-3.5 text-gray-400 pointer-events-none z-10"><Phone size={16} /></span>
                   <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number"
                     className="w-full pl-9 pr-3.5 py-3 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-800 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/10 transition-all" />
                 </div>
                 <div className="relative flex items-center">
-                  <span className="absolute left-3.5 text-gray-400 pointer-events-none z-10">📌</span>
+                  <span className="absolute left-3.5 text-gray-400 pointer-events-none z-10"><Pin size={16} /></span>
                   <select name="subject" value={form.subject} onChange={handleChange}
                     className="w-full pl-9 pr-8 py-3 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-800 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/10 transition-all appearance-none">
                     <option value="">Subject *</option>
@@ -87,7 +93,7 @@ export default function Contact() {
                 </div>
               </div>
               <div className="relative flex items-start">
-                <span className="absolute left-3.5 top-3.5 text-gray-400 pointer-events-none z-10">✏️</span>
+                <span className="absolute left-3.5 top-3.5 text-gray-400 pointer-events-none z-10"><PenLine size={16} /></span>
                 <textarea name="message" value={form.message} onChange={handleChange} placeholder="Type your message here..." rows={4} required
                   className="w-full pl-9 pr-3.5 py-3 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-800 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/10 transition-all resize-vertical" />
               </div>
@@ -105,9 +111,11 @@ export default function Contact() {
 
       <section className="bg-gray-50 py-12 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {infoCards.map((c, i) => (
+          {infoCards.map((c, i) => {
+            const Icon = c.icon
+            return (
             <div key={i} className="bg-white border border-gray-200 rounded-xl p-7 flex flex-col gap-2 hover:shadow-md transition-all">
-              <div className="w-13 h-13 rounded-full bg-green-50 flex items-center justify-center text-2xl mb-1">{c.icon}</div>
+              <div className="w-13 h-13 rounded-full bg-green-50 flex items-center justify-center mb-1"><Icon size={24} className="text-green-700" /></div>
               <h3 className="text-sm font-bold text-green-700">{c.title}</h3>
               <p className="text-xs text-gray-600 whitespace-pre-line leading-relaxed">{c.desc}</p>
               {c.detail && !c.social && <span className="text-xs font-semibold text-green-600">{c.detail}</span>}
@@ -119,21 +127,22 @@ export default function Contact() {
                 </div>
               )}
             </div>
-          ))}
+            )
+          })}
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 pb-12 -mt-2">
         <div className="grid lg:grid-cols-[240px_1fr] bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md h-72">
           <div className="bg-green-800 p-8 flex flex-col gap-4 text-white">
-            <span className="text-2xl">📍</span>
+            <MapPin size={28} />
             <div>
               <div className="text-sm font-bold">Our Location</div>
               <div className="text-xs font-semibold mt-1">BoviPulse HQ</div>
               <div className="text-[11px] text-white/75">123 Greenfield Way, Suite 100</div>
               <div className="text-[11px] text-white/75">Ames, IA 50010, USA</div>
-              <button className="mt-3 bg-white text-green-700 border-none px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-green-50 transition-all cursor-pointer">
-                Get Directions ↗
+              <button className="mt-3 bg-white text-green-700 border-none px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-green-50 transition-all cursor-pointer inline-flex items-center gap-1">
+                Get Directions <ArrowUpRight size={14} />
               </button>
             </div>
           </div>

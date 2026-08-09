@@ -46,7 +46,7 @@ export default function MuzzleID() {
             <button className="text-xs font-semibold text-green-600 hover:text-green-700 cursor-pointer">View All</button>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="r-table w-full text-sm">
               <thead>
                 <tr className="text-left text-[11px] text-gray-500 uppercase tracking-wider border-b border-gray-100">
                   <th className="py-2.5 pr-4">ID</th>
@@ -63,13 +63,13 @@ export default function MuzzleID() {
                     key={c.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.05 * cattle.indexOf(c) }}
+                    transition={{ delay: Math.min(0.05 * cattle.indexOf(c), 0.25) }}
                     className="border-b border-gray-50 hover:bg-green-50/30 transition-colors"
                   >
-                    <td className="py-3 pr-4 font-semibold text-green-700">{c.id}</td>
-                    <td className="py-3 pr-4 font-medium text-gray-900">{c.name}</td>
-                    <td className="py-3 pr-4 text-gray-600">{c.breed}</td>
-                    <td className="py-3 pr-4">
+                    <td data-label="ID" className="py-3 pr-4 font-semibold text-green-700">{c.id}</td>
+                    <td data-label="Name" className="py-3 pr-4 font-medium text-gray-900">{c.name}</td>
+                    <td data-label="Breed" className="py-3 pr-4 text-gray-600">{c.breed}</td>
+                    <td data-label="Match" className="py-3 pr-4">
                       <div className="flex items-center gap-2">
                         <div className="w-16 h-1.5 rounded-full bg-gray-100">
                           <div className={`h-full rounded-full ${c.confidence === 'High' ? 'bg-green-500' : c.confidence === 'Medium' ? 'bg-orange-400' : 'bg-red-500'}`} style={{ width: c.match }} />
@@ -77,7 +77,7 @@ export default function MuzzleID() {
                         <span className="text-xs font-bold text-gray-800">{c.match}%</span>
                       </div>
                     </td>
-                    <td className="py-3 pr-4">
+                    <td data-label="Status" className="py-3 pr-4">
                       <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded-full ${
                         c.status === 'Identified' ? 'text-green-700 bg-green-50' : 'text-orange-600 bg-orange-50'
                       }`}>
@@ -85,7 +85,7 @@ export default function MuzzleID() {
                         {c.status}
                       </span>
                     </td>
-                    <td className="py-3 text-gray-500 text-xs">{c.last}</td>
+                    <td data-label="Last Scan" className="py-3 text-gray-500 text-xs">{c.last}</td>
                   </motion.tr>
                 ))}
               </tbody>

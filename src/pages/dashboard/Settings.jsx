@@ -23,18 +23,20 @@ export default function Settings() {
       <div className="grid lg:grid-cols-[240px_1fr] gap-6">
         {/* Tabs */}
         <div className="bg-white rounded-xl border border-gray-200 p-3 h-fit">
-          {tabs.map(t => {
-            const Icon = t.icon
-            const active = tab === t.id
-            return (
-              <button key={t.id} onClick={() => setTab(t.id)}
-                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-lg text-sm font-medium transition-colors mb-0.5 cursor-pointer ${
-                  active ? 'bg-green-50 text-green-700 font-semibold' : 'text-gray-600 hover:bg-green-50/50 hover:text-green-700'
-                }`}>
-                <Icon size={18} /> {t.label}
-              </button>
-            )
-          })}
+          <div className="flex lg:flex-col gap-1 overflow-x-auto no-scrollbar lg:overflow-visible">
+            {tabs.map(t => {
+              const Icon = t.icon
+              const active = tab === t.id
+              return (
+                <button key={t.id} onClick={() => setTab(t.id)}
+                  className={`flex items-center gap-3 px-3.5 py-3 rounded-lg text-sm font-medium transition-colors flex-shrink-0 whitespace-nowrap lg:w-full cursor-pointer ${
+                    active ? 'bg-green-50 text-green-700 font-semibold' : 'text-gray-600 hover:bg-green-50/50 hover:text-green-700'
+                  }`}>
+                  <Icon size={18} /> {t.label}
+                </button>
+              )
+            })}
+          </div>
         </div>
 
         {/* Content */}
@@ -43,7 +45,7 @@ export default function Settings() {
             {tab === 'profile' && (
               <div>
                 <h2 className="text-sm font-bold text-gray-900 mb-6">Profile Information</h2>
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex flex-wrap items-center gap-4 mb-6">
                   <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-xl font-bold text-green-700">JD</div>
                   <div>
                     <button className="inline-flex items-center gap-2 text-xs font-semibold text-green-700 bg-green-50 px-4 py-2 rounded-lg hover:bg-green-100 transition-all cursor-pointer">
@@ -52,7 +54,7 @@ export default function Settings() {
                     <p className="text-[11px] text-gray-400 mt-1.5">JPG or PNG, max 2MB</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     { label: 'Full Name', field: 'name', value: profile.name },
                     { label: 'Email Address', field: 'email', value: profile.email },
@@ -72,7 +74,7 @@ export default function Settings() {
             {tab === 'farm' && (
               <div>
                 <h2 className="text-sm font-bold text-gray-900 mb-6">Farm Details</h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     { label: 'Farm Name', field: 'name', value: farm.name },
                     { label: 'Farm Type', field: 'type', value: farm.type },
@@ -122,7 +124,7 @@ export default function Settings() {
                     <label className="text-xs font-semibold text-gray-700">Current Password</label>
                     <input type="password" placeholder="••••••••" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
                       <label className="text-xs font-semibold text-gray-700">New Password</label>
                       <input type="password" placeholder="New password" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
@@ -147,7 +149,7 @@ export default function Settings() {
             {tab === 'language' && (
               <div>
                 <h2 className="text-sm font-bold text-gray-900 mb-6">Language & Units</h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-gray-700">Language</label>
                     <select className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all">

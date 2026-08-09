@@ -1,6 +1,6 @@
 import DashboardLayout from './DashboardLayout'
 import { motion } from 'framer-motion'
-import { MapPin, Calendar, Weight, Thermometer, Heart, Activity, Baby, Syringe, Edit } from 'lucide-react'
+import { MapPin, Calendar, Weight, Thermometer, Heart, Activity, Baby, Syringe, Edit, Stethoscope, Scale, Fingerprint, PawPrint } from 'lucide-react'
 
 export default function CowProfile() {
   const vitals = [
@@ -11,11 +11,11 @@ export default function CowProfile() {
   ]
 
   const history = [
-    { date: 'Jul 30', type: 'Health Check', desc: 'Routine checkup - all vitals normal', icon: '🩺' },
-    { date: 'Jul 22', type: 'Vaccination', desc: 'FMD booster administered', icon: '💉' },
-    { date: 'Jul 15', type: 'GestaCheck', desc: 'Pregnancy confirmed - Day 145', icon: '🤰' },
-    { date: 'Jul 08', type: 'Weight', desc: 'Gained 4kg since last check', icon: '⚖️' },
-    { date: 'Jul 01', type: 'MuzzleID', desc: 'Biometric ID updated', icon: '🐾' },
+    { date: 'Jul 30', type: 'Health Check', desc: 'Routine checkup - all vitals normal', icon: Stethoscope },
+    { date: 'Jul 22', type: 'Vaccination', desc: 'FMD booster administered', icon: Syringe },
+    { date: 'Jul 15', type: 'GestaCheck', desc: 'Pregnancy confirmed - Day 145', icon: Baby },
+    { date: 'Jul 08', type: 'Weight', desc: 'Gained 4kg since last check', icon: Scale },
+    { date: 'Jul 01', type: 'MuzzleID', desc: 'Biometric ID updated', icon: Fingerprint },
   ]
 
   return (
@@ -23,7 +23,9 @@ export default function CowProfile() {
       {/* Header Card */}
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
         <div className="flex flex-col sm:flex-row items-start gap-5">
-          <div className="w-24 h-24 rounded-2xl bg-green-50 flex items-center justify-center text-5xl flex-shrink-0">🐄</div>
+          <div className="w-24 h-24 rounded-2xl bg-green-50 flex items-center justify-center flex-shrink-0">
+            <PawPrint size={48} className="text-green-600" />
+          </div>
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-xl font-black text-gray-900">Daisy</h2>
@@ -37,7 +39,7 @@ export default function CowProfile() {
               <span className="flex items-center gap-1.5"><Weight size={13} /> 620 kg</span>
               <span className="flex items-center gap-1.5"><MapPin size={13} /> Zone A - Grazing</span>
             </div>
-            <div className="flex items-center gap-3 mt-2">
+            <div className="flex flex-wrap items-center gap-3 mt-2">
               <button className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-green-700 px-4 py-2.5 rounded-lg hover:bg-green-800 transition-all cursor-pointer">
                 <Edit size={14} /> Edit Profile
               </button>
@@ -84,9 +86,11 @@ export default function CowProfile() {
         <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5">
           <h3 className="text-sm font-bold text-gray-900 mb-4">Activity History</h3>
           <div className="space-y-3">
-            {history.map((h, i) => (
+            {history.map((h, i) => {
+              const Icon = h.icon
+              return (
               <div key={i} className="flex items-start gap-3.5 p-3 rounded-xl border border-gray-100 hover:bg-green-50/20 transition-colors">
-                <div className="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center text-lg flex-shrink-0">{h.icon}</div>
+                <div className="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0"><Icon size={18} className="text-green-600" /></div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-0.5">
                     <span className="text-xs font-bold text-gray-900">{h.type}</span>
@@ -95,7 +99,8 @@ export default function CowProfile() {
                   <p className="text-[11px] text-gray-500">{h.desc}</p>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 
