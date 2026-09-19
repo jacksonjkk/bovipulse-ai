@@ -2,14 +2,30 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, ArrowRight, Activity, Lock, Mail, Cloud, BarChart3, Headphones, Users, ShieldCheck, Globe } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
 export default function SignIn() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const [showPwd, setShowPwd] = useState(false)
   const [remember, setRemember] = useState(true)
   const [form, setForm] = useState({ email: '', password: '' })
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const handleSubmit = e => { e.preventDefault(); navigate('/dashboard') }
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setError('')
+    setSubmitting(true)
+    try {
+      await login(form.email, form.password)
+      navigate('/dashboard')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-900 to-green-800">
@@ -88,12 +104,12 @@ export default function SignIn() {
           <form className="flex flex-col gap-3 text-left" onSubmit={handleSubmit}>
             <div className="relative flex items-center">
               <span className="absolute left-3.5 text-green-600 pointer-events-none z-10"><Mail size={18} /></span>
-              <input name="email" value={form.email} onChange={handleChange} type="email" placeholder="Email Address" required
+              <input name="email" value={form.email} onChange={handleChange} type="email" autoComplete="email" placeholder="Email Address" required
                 className="w-full pl-10 pr-3.5 py-3 rounded-xl border border-black/10 bg-white/70 text-sm text-gray-800 placeholder-gray-400 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
             </div>
             <div className="relative flex items-center">
               <span className="absolute left-3.5 text-green-600 pointer-events-none z-10"><Lock size={18} /></span>
-              <input name="password" value={form.password} onChange={handleChange} type={showPwd ? 'text' : 'password'} placeholder="Password" required
+              <input name="password" value={form.password} onChange={handleChange} type={showPwd ? 'text' : 'password'} autoComplete="current-password" placeholder="Password" required
                 className="w-full pl-10 pr-11 py-3 rounded-xl border border-black/10 bg-white/70 text-sm text-gray-800 placeholder-gray-400 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
               <button type="button" onClick={() => setShowPwd(v => !v)} className="absolute right-3 text-gray-400 hover:text-green-600 transition-colors cursor-pointer">
                 {showPwd ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -106,8 +122,9 @@ export default function SignIn() {
               </label>
               <Link to="/" className="text-xs font-semibold text-green-700 hover:underline">Forgot Password?</Link>
             </div>
-            <button type="submit" className="flex items-center justify-center gap-2.5 w-full py-3.5 bg-green-700 text-white text-sm font-bold rounded-xl hover:bg-green-800 transition-all hover:shadow-md active:scale-[0.97] mt-1.5">
-              Sign In <ArrowRight size={18} />
+            {error && <p className="text-xs text-red-600" role="alert">{error}</p>}
+            <button type="submit" disabled={submitting} className="flex items-center justify-center gap-2.5 w-full py-3.5 bg-green-700 text-white text-sm font-bold rounded-xl hover:bg-green-800 transition-all hover:shadow-md active:scale-[0.97] mt-1.5 disabled:opacity-60">
+              {submitting ? 'Signing In...' : 'Sign In'} {!submitting && <ArrowRight size={18} />}
             </button>
           </form>
 

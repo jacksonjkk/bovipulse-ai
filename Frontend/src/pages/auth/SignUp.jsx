@@ -9,7 +9,18 @@ export default function SignUp() {
   const [showConfirm, setShowConfirm] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '', confirm: '' })
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const handleSubmit = e => { e.preventDefault(); navigate('/role') }
+  const [error, setError] = useState('')
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (form.password !== form.confirm) {
+      setError('Passwords do not match')
+      return
+    }
+    sessionStorage.setItem('bovipulse_signup', JSON.stringify({
+      name: form.name, email: form.email, phone: form.phone, password: form.password,
+    }))
+    navigate('/role')
+  }
 
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-900 to-green-800">
@@ -87,15 +98,15 @@ export default function SignUp() {
 
           <form className="flex flex-col gap-3 text-left" onSubmit={handleSubmit}>
             {[
-              { name: 'name', placeholder: 'Full Name', icon: User },
-              { name: 'email', placeholder: 'Email Address', type: 'email', icon: Mail },
-              { name: 'phone', placeholder: 'Phone Number', type: 'tel', icon: Phone },
+              { name: 'name', placeholder: 'Full Name', icon: User, autoComplete: 'name' },
+              { name: 'email', placeholder: 'Email Address', type: 'email', icon: Mail, autoComplete: 'email' },
+              { name: 'phone', placeholder: 'Phone Number', type: 'tel', icon: Phone, autoComplete: 'tel' },
             ].map(f => {
               const Icon = f.icon
               return (
               <div key={f.name} className="relative flex items-center">
                 <span className="absolute left-3.5 text-green-600 pointer-events-none z-10"><Icon size={18} /></span>
-                <input name={f.name} value={form[f.name]} onChange={handleChange} type={f.type || 'text'} placeholder={f.placeholder} required
+                <input name={f.name} value={form[f.name]} onChange={handleChange} type={f.type || 'text'} autoComplete={f.autoComplete} placeholder={f.placeholder} required
                   className="w-full pl-10 pr-3.5 py-3 rounded-xl border border-black/10 bg-white/70 text-sm text-gray-800 placeholder-gray-400 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
               </div>
               )
@@ -106,13 +117,14 @@ export default function SignUp() {
             ].map(f => (
               <div key={f.name} className="relative flex items-center">
                 <span className="absolute left-3.5 text-green-600 pointer-events-none z-10"><Lock size={18} /></span>
-                <input name={f.name} value={form[f.name]} onChange={handleChange} type={f.show ? 'text' : 'password'} placeholder={f.placeholder} required
+                <input name={f.name} value={form[f.name]} onChange={handleChange} type={f.show ? 'text' : 'password'} autoComplete="new-password" placeholder={f.placeholder} required
                   className="w-full pl-10 pr-11 py-3 rounded-xl border border-black/10 bg-white/70 text-sm text-gray-800 placeholder-gray-400 focus:border-green-500 focus:bg-white focus:ring-3 focus:ring-green-500/15 transition-all" />
                 <button type="button" onClick={f.toggle} className="absolute right-3 text-gray-400 hover:text-green-600 transition-colors cursor-pointer">
                   {f.show ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             ))}
+            {error && <p className="text-xs text-red-600" role="alert">{error}</p>}
             <button type="submit" className="flex items-center justify-center gap-2.5 w-full py-3.5 bg-green-700 text-white text-sm font-bold rounded-xl hover:bg-green-800 transition-all hover:shadow-md active:scale-[0.97] mt-1.5">
               Create Account <ArrowRight size={18} />
             </button>
